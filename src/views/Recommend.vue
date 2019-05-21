@@ -1,7 +1,5 @@
 <template>
-  <div class="Recommend">
-    12
-  </div>
+  <div class="Recommend"></div>
 </template>
 
 <script>
@@ -14,7 +12,10 @@ export default {
     };
   },
   components: {},
-  created() {}
+  created() {},
+  mounted() {
+    
+  }
 };
 </script>
 <style lang="less" scoped>

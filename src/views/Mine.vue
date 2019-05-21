@@ -1,6 +1,16 @@
 <template>
-  <div class="Mine-lyout">
-    <div class="mine-content" v-on:click="playDetail(item)" v-for="item in playlist" :key='item.id'>{{item.name}}</div>
+  <div class="Mine-over">
+    <div class="Mine-lyout">
+    <div
+      class="mine-content"
+      v-on:click="playDetail(item)"
+      v-for="item in playlist"
+      :key="item.id"
+    >
+    <p>{{item.name}}</p>
+    <i class="fa fa-play"/>
+    </div>
+  </div>
   </div>
 </template>
 
@@ -13,11 +23,11 @@ export default {
     return {
       user: JSON.parse(localStorage.getItem("user")),
       MenuList: [],
-      playlist:[]
+      playlist: []
     };
   },
   components: {},
-  created() {
+  mounted() {
     axios
       .get("http://localhost:3000/user/playlist", {
         params: {
@@ -25,7 +35,7 @@ export default {
         }
       })
       .then(res => {
-        this.playlist = res.data.playlist
+        this.playlist = res.data.playlist;
       });
     axios
       .get("http://localhost:3000/user/dj", {
@@ -38,13 +48,17 @@ export default {
       });
   },
   methods: {
-    playDetail:function(item) {
-      this.$router.push('/playDetail/'+item.id)
+    playDetail: function(item) {
+      this.$router.push("/playDetail/" + item.id);
     }
-  },
+  }
 };
 </script>
 <style lang="less" scoped>
+.Mine-over{
+  height: calc(~"100% - 42px");
+  overflow: auto;
+}
 .Mine-lyout {
   width: 100%;
   display: flex;
@@ -57,6 +71,12 @@ export default {
     line-height: 40px;
     text-align: left;
     padding: 0 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
   }
 }
 </style>
